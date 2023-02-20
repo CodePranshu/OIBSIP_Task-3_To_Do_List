@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>To do list</title>
+    
+</head>
+<body>
+    <div class="container">
+    <div class="element">
+        <input type="text" placeholder="Type something">
+        <button>Add</button>
+    </div>
+    <div id="list">
+        <ol class="pendingtask">
+            <h1>Pending </h1>
+        </ol>
+
+        <ol class="completed">
+            <h1>Completed</h1>
+        </ol>
+    </div>
+</div>
+<script>
+const input = document.querySelector('input');
+const btn = document.querySelector('.element > button');
+
+btn.addEventListener('click', addList);
+input.addEventListener('keyup',(e)=>{
+    (e.keycode === 13 ? addList(e) : null);
+
+});
+
+function addList(e){
+    const pendingtask = document.querySelector('.pendingtask');
+    const completed = document.querySelector('.completed');
+
+    const newLi = document.createElement('li');
+    const savebtn = document.createElement('button');
+    const delbtn = document.createElement('button');
+    
+    savebtn.innerHTML = 'save';
+    delbtn.innerhtml = 'Delete';
+    
+    if(input.value !=='')
+    {
+        newLi.textContent = input.value;
+        input.value = '';
+        pendingtask.appendChild(newLi);
+        newLi.appendChild(savebtn);
+        newLi.appendChild(delbtn);
+    }
+     savebtn.addEventListener('click', function(){
+        const parent = this.parentNode;
+        parent.remove();
+        completed.appendChild(parent);
+        savebtn.style.display = 'none';
+    });
+
+    delbtn.addEventListener('click', function(){
+        const parent = this.parentNode;
+        parent.remove();
+        
+    });    
+}
+</script>
+</body>
+</html>
